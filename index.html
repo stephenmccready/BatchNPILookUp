@@ -1,0 +1,117 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="utf-8">
+	<meta http-equiv="content-type" content="text/html; charset=utf-8" />
+	<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+	<meta name="description" content="Use a list of license numbers to lookup the providers NPI">
+	<meta name="keywords" content="NPI, Provider, Lookup, Batch, License Number">
+	<meta property="og:title" content="Batch NPI Lookup">
+	<meta property="og:description" content="Use a list of license numbers to lookup the providers NPI">
+	<title>Batch NPI Lookup</title>
+<style>
+textarea {width: 100%; height: 25em; padding: 12px 20px; box-sizing: border-box; border: 2px solid #ccc; border-radius: 4px; background-color: #f8f8f8; resize: none;}
+</style>
+<script>
+function jNPILookUp() {
+	var providerArray = document.getElementById("providerNames").value.split("\n");
+
+	for(var i=69; i < providerArray.length - 1; i++) {
+		
+		var xmlhttp = new XMLHttpRequest();
+		xmlhttp.onreadystatechange = function() {
+			if (this.readyState == 4 && this.status == 200) {
+				var providerObj = JSON.parse(this.responseText);
+				console.log(providerObj);
+			}
+		};
+		var url = "https://npiregistry.cms.hhs.gov/api/?version=2.1&organization_name=" + providerArray[i].replace(/ /g, "+");
+		console.log(url);
+		xmlhttp.open("GET", url, true);
+		xmlhttp.send();
+
+	}
+}
+</script>
+</head>
+<body>
+<div class="form-container">
+	<form>
+		<p>
+		<textarea id="providerNames" rows="70" cols="128">
+ABC Health Services Registry Inc
+All Metro Home Care Services of New York, Inc
+Alliance for Health, Inc
+Alliance Home Services, Inc
+Alternate Staffing Inc
+Amazing Home Care Services, Inc.
+Americare, Inc
+Bestcare Inc.
+Best Choice Home Health Care
+BHRAGS Home Care Corp.
+Bronx Community Home Care, Inc. (dba Neighbors Home Care)
+Bronx Jewish Community Council Home Attendant Services Inc.
+Bushwick Stuyvesant Heights Home Attendants Inc.
+CABS - Home Attendant Services, Inc
+Care at Home Diocese of Brooklyn
+Caring Professionals Inc.
+Chinese American Planning Council Home Attendant Program Inc
+CIDNY - Independent Living Services Inc
+Community Home Care Referral Service Inc. (dba Helping Hands Attendant Services)
+Cooperative Home Care Associates, Inc
+Dennelisse - LHCSA
+Elderserve of Westchester/Elderserve of Riverdale
+Emanuel Home Care Services, Inc
+Emergency Staffing Inc (dba House Calls Home Care)
+Family Home Care Services of Brooklyn & Queens Inc
+Fedcap Rehabilitation Services Inc (dba Fedcap Home Care)
+FEGS Home Attendant Services
+First Chinese Presbyterian Community Affairs Home Attendant Corp
+Home Attendant Services of Hyde Park Inc
+Home Attendant Vendor Agency Inc
+Home Care Services For Independent Living Inc
+Home Health Management Services Inc (dba Home Health Management Managed Care Services)
+InterGen Health, LLC
+Isabella Visiting Care, Inc
+Jewish Home Lifecare, Home Assistance Personnel, Inc H.A.P.I.
+Mrs Mary's Place HCS Inc (dba Heart to Heart Home Care)
+MZL Home Care Agency
+Nae Edison LLC (dba Edison Home Health Care)
+New Partner's Inc (dba Partners in Care)
+New York Foundation for Senior Citizens (dba Home Attendant Services)
+Parkshore Home Health (dba Renaissance Home Care)
+People Care (dba Assisted Care)
+Personal Touch Home Care of NY, Inc
+Pomonok Home Service Inc
+Premier Home Health Care Services
+Prestige Care, Inc
+Prestige Home Attendant Inc (dba All Season Home Attendant)
+Progressive Home Health Services, Inc (dba Kind Care)
+PSC Community Services, Inc
+R.A.I.N. Home Attendant Services, Inc.
+Regency Health Care Inc (dba Regency of Boro Park)
+Region Care Nursing
+Ridgewood Bushwick Senior Citizens Home Care Planning Council, Inc
+Rockaway Home Attendant Services, Inc
+Scharome Cares, Inc.
+School Settlement Home Attendant Service Corp
+Selfhelp Community Services, Inc
+Selfhelp Community Services, Inc
+Services for the Aged (dba JASACare)
+Social Concern Community Development Corp
+Special Touch Home Care Services, Inc
+St. Nicholas Human Support (dba St. Nick's Alliance Homecare)
+Stella Orton Home Care Agency, Inc
+Summit Home Health Care Inc
+Sunnyside Citywide Home Care Service, Inc
+Sunnyside Home Care Project, Inc
+United Jewish Council of the East Side Home Attendant Service Corp
+Unlimited Care, Inc.
+VIP Health Care Services, Inc.
+Welcome Care, Inc.
+		</textarea>
+	</p>
+	<p><a href="#" onclick="jNPILookUp();">Look Up</a></p>
+</form>
+</body>
+</html>
